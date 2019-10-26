@@ -1,0 +1,193 @@
+@model GameController.ViewModel.ViewModelTeamWaypoint
+
+@{
+    ViewData["Title"] = "Team List";
+}
+
+<style>
+    #map {
+        height: 750px;
+        width: 100%;
+    }
+    .marker {
+        background-image: url('@Url.Content("~/images/mapbox-icon.png")');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .markerteams {
+        background-image: url('@Url.Content("~/images/team-icon.png")');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+    .mapboxgl-popup {
+        max-width: 200px;
+    }
+
+    .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+    }
+</style>
+
+<script>
+    var toggle = true;
+    function reload_toggle() {
+        if (toggle) {
+            toggle = false;
+            document.getElementById("toggle").style.backgroundColor = 'red';
+        } else {
+            toggle = true;
+            document.getElementById("toggle").style.backgroundColor = 'green';
+        }
+    }
+</script>
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+<div class="container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="float:right">Help</button>
+    <div>
+        <h2>
+            Team List
+        </h2>
+    </div>
+
+</div>
+<div class="button-group">
+    <div class="button-div"><a class="button-text" asp-action="Create">Create New</a></div>
+   
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team.Longtitude)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Team.Latitude)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AllTeam)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Longtitude
+                    </td>
+                    <td>
+                        @item.Latitude
+                    </td>
+                    <td>
+
+                        <a asp-action="Details" asp-route-id="@item.TeamId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.TeamId">Delete</a> |
+                        <a asp-controller="StudentsManagement" asp-action="" asp-route-id="@item.TeamId">Member Management</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="button-div"><a class="button-text" asp-controller="Intermediate" asp-action="" asp-route-id=>Back to menu</a></div>
+    <button id="toggle" onclick="reload_toggle()">Toggle Auto Refresh</button>
+    <div id="map">
+
+        <script type="text/javascript">
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYmF5dTE2IiwiYSI6ImNrMDZqOWg0djA2bzIzYm12eWR6eWFvdHQifQ.6KPi44pmUpR627TadcHC0g';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [153.019137, -27.497544],
+                zoom: 16
+            })</script>
+    </div>
+
+    @foreach (var item in Model.AllTeam)
+    {
+        <script type="text/javascript">
+        //loop to add all team's marker'
+        var geojson = {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [@Html.DisplayFor(model => item.Longtitude),
+                     @Html.DisplayFor(model => item.Latitude)]
+            }
+
+
+          }]
+        };
+        geojson.features.forEach(function(marker) {
+
+            var el = document.createElement('div');
+            el.className = 'markerteams';
+
+            new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(new mapboxgl.Popup({ offset: 25 })
+            .setHTML('@Html.DisplayFor(model => item.Name)'))
+            .addTo(map);
+        });
+
+        </script>
+    }
+
+
+
+    <script>
+        // auto reload map to update the position of each team
+        function timeout() {
+            setTimeout(function () {
+                console.log("refreshed");
+                if (toggle) {
+                    location.reload();
+                }
+                timeout();
+            }, 10000);
+        }
+        timeout();
+
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Help and Tips</h5>
+                </div>
+                <div class="modal-body">
+                    This page shows all teams that have been created in the game system. Each team can be seen on the map in their last known position.
+                    <br>
+                    <br>
+                    <p>
+                        Steps to Create a Team:
+                        <br>
+                        Click Create new and name your team. Then add students by clicking manage students, then add student and enter a student ID.
+                    </p>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+        </div>
+    </div>

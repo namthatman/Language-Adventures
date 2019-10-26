@@ -1,0 +1,35 @@
+﻿@model GameControllerData.Models.Challenge
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Challenge</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChallengeType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChallengeType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ChallengeDetail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChallengeDetail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorrectAnswer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorrectAnswer)
+        </dd>
+    </dl>
+</div>
+<div class="button-div"><a class="button-text" asp-action="Edit" asp-route-id="@Model.ChallengeID">Edit</a></div>
+<div class="button-div"><a class="button-text" asp-action="Index">Back to List</a></div>
+

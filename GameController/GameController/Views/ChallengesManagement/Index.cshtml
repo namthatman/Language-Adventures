@@ -1,0 +1,129 @@
+﻿@model IEnumerable<GameControllerData.Models.Challenge>
+@using System.Text.RegularExpressions
+@{
+    ViewData["Title"] = "Index";
+    var resultString = Regex.Match(Context.Request.Path, @"\d+").Value;
+}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="float:right;width:12%">Help</button>
+    
+@{
+    if (Model != null)
+    {
+        <div class="container">
+
+            <h2>
+                Challenges
+            </h2>
+        </div>
+
+        <div class="button-group">
+            <div class="button-div"><a class="button-text" asp-action="CreateAll">Create New</a></div>
+        </div>
+
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ChallengeID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ChallengeType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ChallengeDetail)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CorrectAnswer)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChallengeID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChallengeType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChallengeDetail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CorrectAnswer)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ChallengeID" asp-route-adventureID="@ViewData["adventureID"]" asp-route-waypointID="@ViewData["waypointID"]">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ChallengeID" asp-route-adventureID="@ViewData["adventureID"]" asp-route-waypointID="@ViewData["waypointID"]">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ChallengeID" asp-route-adventureID="@ViewData["adventureID"]" asp-route-waypointID="@ViewData["waypointID"]">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="container">
+            <div>
+                <h2>
+                    Challenge (empty)
+                </h2>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="float:right">Help</button>
+            </div>
+        </div><p>
+            <div class="button-div">
+                <a class="button-text" asp-controller="ChallengesManagement" asp-action="Create" asp-route-waypointID="@ViewData["waypointID"]">Create New</a>
+            </div>
+        </p>
+    }
+}
+
+@{
+    if (ViewData["adventureID"] != null)
+    {
+        <div class="button-div"><a class="button-text" asp-controller="WaypointsManagement" asp-route-id="@ViewData["adventureID"]">Back to Waypoint Menu</a></div>
+    }
+    else
+    {
+        <div class="button-div"><a class="button-text" asp-controller="AdventuresManagement">Back to Adventure Menu</a></div>
+    }
+}
+
+<!-- Modal -->
+<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Help and Tips</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Challenges are specified by their question, which is input in ChallengeDetail, and their answer, input in CorrectAnswer.
+                </p>
+                <p>
+                    Challenges come in two types:
+                    <br>
+                    Short answer requires the users to type in the correct answer to a question. Can be used for numbers or text. ChallengeDetail and CorrectAnswer are plain text/numbers.
+                    <br>
+                    MCQ is Multiple Choice Question. Players will answer a question by choosing from a list of options. ChallengeDetail and CorrectAnswer must be in specific format. ChallengeDetail will have the question text followed by the answer options, separated and followed by '$' for example:
+                    <br>
+                    "Where should you go next? $SLEB Building$Mayne Hall$Cemetery$Duhig Tower$".
+                    <br>
+                    CorrectAnswer must be the exact text of the correct answer example: "Cemetery"
+                <p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

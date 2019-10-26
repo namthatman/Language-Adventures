@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             mc:Ignorable="d"
+             x:Class="LanguageAdventures.Pages.TermPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ContentPage.Content>
+        <Grid Margin="20,20">
+            <Label Text="GPS Policy" FontAttributes="Bold"
+                   TextColor="{DynamicResource PrimaryTextColor}"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   Grid.Row="0"/>
+            <ScrollView Grid.Row="1" Grid.RowSpan="5">
+                <Label Text="{Binding gpsPolicy}" LineBreakMode="WordWrap"/>
+            </ScrollView>
+            <controls:CheckBox x:Name="agreeBox"
+                        DefaultText="By ticking this checkbox, we assumed you have read and agreed to our GPS Policy."
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="{DynamicResource PrimaryTextColor}"
+                        CheckedChanged="AgreeBox_CheckedChanged"
+                        VerticalOptions="End"
+                        Grid.Row="6"/>
+            <Button x:Name="closeButton" Text="Close"
+                        BackgroundColor="{DynamicResource SecondaryColor}" TextColor="{DynamicResource SecondaryTextColor}"
+                        Clicked="CloseButton_Clicked"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="End"
+                        Grid.Row="7"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

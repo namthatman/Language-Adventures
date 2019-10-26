@@ -1,0 +1,261 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 10px;
+    padding-bottom: 40px;
+    text-align:center;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    
+}
+.table {
+    text-align:left;
+}
+    
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+#login {
+    width: 40%;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+    #login h1 {
+        text-align: center;
+        margin: 20px;
+    }
+
+/* Bordered form */
+form {
+    border: 3px solid #f1f1f1;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    width:12%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    float:right;
+    
+}
+    /* Add a hover effect for buttons */
+    button:hover {
+        opacity: 0.8;
+    }
+
+
+/* Styling for Login button */
+.login {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    float: right;
+}
+
+
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 10px;
+    width: 100%;
+}
+
+/* The "Forgot password" text */
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The buttons in Menu  */
+.menu {
+    position: relative;
+    left: 25%;
+    width: 50%;
+    font-size: 25px;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    text-align: center;
+    background-color: #2377CB;
+    border-radius: 10px;
+}
+
+/* Text in menu button */
+#team-in-menu {
+    color: white;
+}
+
+/* Text in menu button */
+#adventure-in-menu {
+    color: white;
+}
+
+/* Button groups */
+.button-group div{
+    width:14%;
+   
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 15px;
+    text-align: center;
+    background-color: #2377CB;
+    border-radius: 10px;
+    display:inline-table;
+}
+
+/* The display of button group */
+.button-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* The attributes of containers*/
+container{
+    position:relative;
+    left:0%;
+    top:10%;
+}
+/* Text in button group */
+.button-text {
+    color: white;
+    width: 15%;
+}
+/* Styling for all buttons*/
+.button-div {
+    width: 12%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 15px;
+    text-align: center;
+    background-color: #2377CB;
+    border-radius: 10px;
+
+}
+
+/* Header of each page*/
+h2{
+    text-align:center;
+    clear:both;
+}
+
+/* Styling for hovering effects for links*/
+a:hover{
+    color:aquamarine;
+}
+
+btn btn-primary{
+    width:12%;
+}
+
+.menu-div{
+    padding-top:70px;
+   
+}
+
+/* Styling for footer */
+footer{
+    text-align:left;
+   
+}
+
+/* Styling for the content in popups in help button */
+.modal-content{
+    text-align:left;
+}
+
+/*Styling for tables */
+.row {
+    display: inline-block;
+    width: 35%;
+}
+
+.dl-horizontal{
+    text-align:left;
+}
+
+/* Styling for navigation bar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: whitesmoke;
+    text-align:center;
+}
+
+li {
+    
+    display:inline-block;
+}
+
+    li a {
+        display: inline-block;
+        color: black;
+        font-size:20px;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        li a:hover {
+            background-color: #c4bdbd;
+            color:white;
+        }
+li .block{
+    width:50px;
+}

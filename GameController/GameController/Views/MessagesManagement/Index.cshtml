@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GameControllerData.Models.Message>
+
+@{
+    ViewData["Title"] = "Message Management";
+}
+
+<h2>Message Management</h2>
+
+<div class="button-div"><a class="button-text" asp-action="Create">Send Messages</a></div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MessageContent)
+            </th>
+            <th>
+                To Team
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MessageContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MessageID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MessageID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MessageID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="button-div"><a class="button-text" asp-controller="Intermediate" asp-action="" asp-route-id=>Back to menu</a></div>
+

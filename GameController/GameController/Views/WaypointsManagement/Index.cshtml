@@ -1,0 +1,89 @@
+﻿@model IEnumerable<GameControllerData.Models.Waypoint>
+@using System.Text.RegularExpressions
+@{
+    ViewData["Title"] = "Waypoints Management";
+    var adventureID = Regex.Match(Context.Request.Path, @"\d+").Value;
+}
+
+@{
+    if (Model.FirstOrDefault() != null)
+    {
+        <h2>Waypoints Management</h2>
+        <div class="button-group">
+            <div class="button-div"><a class="button-text" asp-action="Create" asp-route-id=@adventureID>Create New</a></div>
+
+            <div class="button-div">
+                <a class="button-text" asp-controller="newAdventureMaps">Adventure Mapping</a>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WaypointID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Longitude)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Latitude)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Content)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Challenge)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adventure)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WaypointID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Longitude)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Latitude)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Challenge.ChallengeID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Adventure.AdventureID)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.WaypointID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.WaypointID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.WaypointID">Delete</a> |
+                            <a asp-controller="ChallengesManagement" asp-action="" asp-route-adventureID="@adventureID"
+                               asp-route-challengeID="@item.ChallengeID" asp-route-waypointID="@item.WaypointID">Challenge</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2>No Waypoints</h2>
+        <div class="button-div"><a class="button-text" asp-action="Create" asp-route-id=@adventureID>Create New</a></div>
+
+        <div class="button-div">
+            <a class="button-text" asp-controller="newAdventureMaps">Adventure Mapping</a>
+        </div>
+    }
+}
+
+<div class="button-div"><a class="button-text" asp-controller="AdventuresManagement">Back to Adventure Menu</a></div>
+

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LanguageAdventures.Pages.MessagePage">
+    
+    <ContentPage.Content>
+        <StackLayout Margin="20,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="gmAvatar" Grid.Column="1"
+                       HeightRequest="60"
+                       HorizontalOptions="Center"/>
+                <Label Text="Game Master" HorizontalOptions="Center"
+                       FontAttributes="Bold" Grid.Column="1" Grid.Row="1"/>
+                <ImageButton x:Name="refreshButton" Grid.Column="2" Grid.Row="1"
+                             HorizontalOptions="End"
+                             VerticalOptions="Start"
+                             HeightRequest="20"
+                             WidthRequest="20"
+                             Clicked="RefreshButton_Clicked"/>
+            </Grid>
+            <ListView x:Name="messageListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding messageContent}"/>
+                                <Label Text="{Binding time, StringFormat='{0:dd MMM  hh\\:mm}'}" Grid.Row="1"
+                                       FontSize="Micro" HorizontalTextAlignment="End"
+                                       TextColor="{DynamicResource TertiaryTextColor}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

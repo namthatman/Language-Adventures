@@ -1,0 +1,182 @@
+﻿@model GameController.ViewModel.ViewModelTeamWaypoint
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<style>
+    #map {
+        height: 700px;
+        width: 100%;
+    }
+    .marker {
+        background-image: url('@Url.Content("~/images/mapbox-icon.png")');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .markerteams {
+        background-image: url('@Url.Content("~/images/team-icon.png")');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .mapboxgl-popup {
+        max-width: 200px;
+    }
+
+    .mapboxgl-popup-content {
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+    }
+</style>
+
+<script>
+    var toggle = true;
+    function reload_toggle() {
+        if (toggle) {
+            toggle = false;
+            document.getElementById("toggle").style.backgroundColor = 'red';
+        } else {
+            toggle = true;
+            document.getElementById("toggle").style.backgroundColor = 'green';
+        }
+    }
+</script>
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+
+<h2>Details</h2>
+
+<div>
+    <h4>Team</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(item => item.Team.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(item => item.Team.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(item => item.Team.Longtitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(item => item.Team.Longtitude)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(item => item.Team.Latitude)
+        </dt>
+        <dd>
+            @Html.DisplayFor(item => item.Team.Latitude)
+        </dd>
+    </dl>
+</div>
+<button id="toggle" onclick="reload_toggle()">Toggle Auto Refresh</button>
+<div id="map">
+    <script type="text/javascript">
+        // map creation
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYmF5dTE2IiwiYSI6ImNrMDZqOWg0djA2bzIzYm12eWR6eWFvdHQifQ.6KPi44pmUpR627TadcHC0g';
+
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+
+            center: [@Html.DisplayFor(item => item.Team.Longtitude),
+                     @Html.DisplayFor(item => item.Team.Latitude)],
+            zoom: 16
+        });
+
+
+        var geojson = {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [@Html.DisplayFor(item => item.Team.Longtitude),
+                     @Html.DisplayFor(item => item.Team.Latitude)],
+            }
+          }]
+        };
+
+        geojson.features.forEach(function(marker) {
+            //add team's marker
+            var el = document.createElement('div');
+            el.className = 'markerteams';
+
+            new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(new mapboxgl.Popup({ offset: 25 })
+            .setHTML('@Html.DisplayFor(item => item.Team.Name)'))
+            .addTo(map);
+        });
+    </script>
+    @{
+        if (Model.AllWaypoint != null)
+        {
+            foreach (var item in Model.AllWaypoint)
+            {
+                <script type="text/javascript">
+        //loop to add all team's marker'
+        var geojson = {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [@Html.DisplayFor(model => item.Longitude),
+                     @Html.DisplayFor(model => item.Latitude)]
+            }
+
+
+          }]
+        };
+        geojson.features.forEach(function(marker) {
+
+            var el = document.createElement('div');
+            el.className = 'marker';
+
+            new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .setPopup(new mapboxgl.Popup({ offset: 25 })
+            .setHTML('@Html.DisplayFor(model => item.Content)'))
+            .addTo(map);
+        });
+
+                </script>
+            }
+        }
+    }
+
+
+
+
+</div>
+
+
+<div class="button-div"><a class="button-text" asp-action="Edit" asp-route-id="@Model.Team.TeamId")>Edit</a></div>
+<div class="button-div"><a class="button-text" asp-action="Index">Back to List</a></div>
+
+
+
+<script>
+    function timeout() {
+        setTimeout(function () {
+            console.log("refreshed");
+            if (toggle) {
+                location.reload();
+            }
+            timeout();
+        }, 10000);
+    }
+    timeout();
+
+</script>

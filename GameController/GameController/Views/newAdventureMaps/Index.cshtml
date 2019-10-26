@@ -1,0 +1,76 @@
+﻿@model IEnumerable<GameControllerData.Models.newAdventureMap>
+
+@{
+    ViewData["Title"] = "Adventure Map Management";
+}
+
+    <div class="container">
+
+        <div>
+            <h2>
+                Adventure Map Management
+            </h2>
+        </div>
+        
+        <div>
+
+        </div>
+    </div>
+    <div class="button-group">
+        <div class="button-div"><a class="button-text" asp-action="Create">Create New</a></div>
+        <div class="button-div"><a class="button-text" asp-controller="WaypointsManagement">Details of waypoints</a></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="float:right;width:12%">Help</button>
+
+    </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FromWaypoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToWaypoint)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromWaypoint.WaypointID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToWaypoint.WaypointID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AdventureMapID">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AdventureMapID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="button-div"><a class="button-text" asp-controller="AdventuresManagement">Back to Adventure Menu</a></div>
+
+<!-- Modal -->
+<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Help and Tips</h5>
+            </div>
+            <div class="modal-body">
+                Adventure Map links waypoints together.
+                <p>If you wish teams to travel from waypoint 25 to waypoint 26 in an adventure, you must add a mapping from 25-> 26.</p>
+                <p>A waypoint can map to a single waypoint OR multiple other waypoints.  multiple waypoints can map to a single waypoint.</p>
+                <p>multiple waypoints can map to a single waypoint.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LanguageAdventures.Pages.SettingPage">
+
+    <ContentPage.Content>
+        <ScrollView Margin="20,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Text="Team Name:" Grid.Row="0" Grid.Column="0"/>
+                <Label x:Name="teamName" Text="{Binding myTeamName}"
+                       HorizontalOptions="CenterAndExpand"
+                       FontAttributes="Bold" Grid.Row="0" Grid.Column="1"/>
+                <Picker x:Name="themePicker"
+                        Title="Change theme"
+                        TitleColor="{DynamicResource PrimaryTextColor}"
+                        TextColor="{DynamicResource PrimaryTextColor}"
+                        SelectedIndexChanged="ThemePicker_SelectedIndexChanged"
+                        Margin="0,20"
+                        Grid.Row="1" Grid.ColumnSpan="2"/>
+                <Label Text="Get familiar with sample quizzes"
+                       Grid.Row="2" Grid.ColumnSpan="2"/>
+                <Button x:Name="MCQ"
+                        Text="MCQ"
+                        Clicked="MCQ_Clicked"
+                        BackgroundColor="{DynamicResource SecondaryColor}" TextColor="{DynamicResource SecondaryTextColor}"
+                        Grid.Row="3" Grid.Column="0"/>
+                <Button x:Name="TextAnswer"
+                        Text="Text"
+                        Clicked="TextAnswer_Clicked"
+                        BackgroundColor="{DynamicResource SecondaryColor}" TextColor="{DynamicResource SecondaryTextColor}"
+                        Grid.Row="3" Grid.Column="1"/>
+                <Button x:Name="Photo"
+                        Text="Photo"
+                        Clicked="Photo_Clicked"
+                        BackgroundColor="{DynamicResource SecondaryColor}" TextColor="{DynamicResource SecondaryTextColor}"
+                        Grid.Row="4" Grid.Column="0"/>
+                <Button x:Name="Audio"
+                        Text="Audio"
+                        Clicked="Audio_Clicked"
+                        BackgroundColor="{DynamicResource SecondaryColor}" TextColor="{DynamicResource SecondaryTextColor}"
+                        Grid.Row="4" Grid.Column="1"/>
+                <Label Text="Terms and conditions"
+                       Grid.Row="5" Grid.Column="0"
+                       Margin="0,20"/>
+                <Button x:Name="policyButton" Text="GPS Policy"
+                        BackgroundColor="{DynamicResource TransparentColor}" TextColor="{DynamicResource SecondaryColor}"
+                        Clicked="PolicyButton_Clicked"
+                        Grid.Row="5" Grid.Column="1"/>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<GameControllerData.Models.Adventure>
+
+@{
+    ViewData["Title"] = "List of Adventures";
+}
+
+<div class="container">
+    <div>
+        <h2>
+            Adventures
+        </h2>
+    </div>
+</div>
+
+<div class="button-group">
+    <div><a class="button-text" asp-action="Create">Create New</a></div>
+    <div><a class="button-text" asp-controller="ChallengesManagement">Challenges Management</a></div>
+    <div><a class="button-text" asp-controller="newAdventureMaps">Adventure Map Management</a></div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="float:right;width:12%">Help</button>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CoverImage)
+            </th>
+            <th>
+                Starting Waypoint
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CoverImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Waypoint.WaypointID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AdventureID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.AdventureID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AdventureID">Delete</a>
+                    <a asp-controller="WaypointsManagement" asp-route-id="@item.AdventureID">Waypoints Management</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="button-div"><a class="button-text" asp-controller="Intermediate" asp-action="" asp-route-id=>Back to menu</a></div>
+
+<!-- Modal -->
+<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Help and Tips</h5>
+            </div>
+            <div class="modal-body">
+                This page shows all adventures that have been created in the game system. These adventures are viewable by players on their mobile applications.
+                <p>Adventures must have their start waypoint set to be playable.</p>
+                <br>
+              
+                <p>
+                    Steps to Create an Adventure
+                    <br>
+                    1. Go to the create new page to create the adventure. Initially waypointID will be changed later.
+                    <br>
+                    2. Create your challenges and your waypoints. To create challenges, go to Challenges Management and create new. To create your waypoints go to Waypoint management, in the adventure table and create your waypoints. It may be easier to create challenges first, as you must link the waypoints to existing challenges.
+                    <br>
+                    3. Map your waypoints. This allows the system to know the order of the waypoints. Do this in Adventure Map Management.
+                    <br>
+                    4. Edit your adventure to add the start waypoint that you created earlier, by clicking edit in the adventure table.
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

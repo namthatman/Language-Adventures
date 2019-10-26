@@ -1,0 +1,85 @@
+﻿@model GameControllerData.Models.Challenge
+
+@{
+    ViewData["Title"] = "CreateAll";
+    ViewData["Title"] = "Create";
+    String[] array = { "Text", "MCQ", "" };
+}
+
+
+<div class="container">
+    <div>
+        <h2>
+            Create Challenge
+        </h2>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="width:12%;float:right">Help</button>
+    </div>
+</div>
+<h4>Challenge</h4>
+<hr />
+<div class="row">
+    <div>
+        <form asp-action="CreateAll">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ChallengeType" class="control-label"></label>
+
+                <select asp-for="ChallengeType" class="form-control" asp-items=@(new SelectList(array))></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChallengeDetail" class="control-label"></label>
+                @Html.TextAreaFor(model => model.ChallengeDetail, new { @class = "form-control", @rows = 4 })
+                <span asp-validation-for="ChallengeDetail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorrectAnswer" class="control-label"></label>
+                <input asp-for="CorrectAnswer" class="form-control" />
+                <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="button-div">
+    <a class="button-text" asp-action="Index">Back to List</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Help and Tips</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Challenges are specified by their question, which is input in ChallengeDetail, and their answer, input in CorrectAnswer.
+                </p>
+                <p>
+                    Challenges come in two types:
+                    <br>
+                    Short answer requires the users to type in the correct answer to a question. Can be used for numbers or text. ChallengeDetail and CorrectAnswer are plain text/numbers.
+                    <br>
+                    MCQ is Multiple Choice Question. Players will answer a question by choosing from a list of options. ChallengeDetail and CorrectAnswer must be in specific format. ChallengeDetail will have the question text followed by the answer options, separated and followed by '$' for example:
+                    <br>
+                    "Where should you go next? $SLEB Building$Mayne Hall$Cemetery$Duhig Tower$".
+                    <br>
+                    CorrectAnswer must be the exact text of the correct answer example: "Cemetery"
+                <p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

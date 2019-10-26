@@ -1,0 +1,60 @@
+﻿@model IEnumerable<GameControllerData.Models.Student>
+@using System.Text.RegularExpressions
+@{
+    ViewData["Title"] = "Index";
+    var resultString = Regex.Match(Context.Request.Path, @"\d+").Value;
+}
+@{
+    if (Model.FirstOrDefault() != null)
+    {
+        <h2>Students In Team @Model.FirstOrDefault().Team.Name</h2>
+    }
+    else
+    {
+        <h2>Team Is Empty</h2>
+    }
+}
+
+
+<div class="button-group">
+    <div><a class="button-text" asp-action="Create" asp-route-id=@resultString>Add Student</a></div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                StudentID
+            </th>
+            <th>
+                Team Name
+            </th>
+            <th>
+                TeamId
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.TeamId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.StudentID">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.StudentID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="button-div">
+    <a class="button-text"asp-controller="Teams" >Back to Team List</a>
+</div>

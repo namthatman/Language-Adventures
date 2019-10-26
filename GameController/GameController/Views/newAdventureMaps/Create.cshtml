@@ -1,0 +1,34 @@
+﻿@model GameControllerData.Models.newAdventureMap
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>newAdventureMap</h4>
+<hr />
+<div class="row">
+    <div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FromWaypointID" class="control-label"></label>
+                <select asp-for="FromWaypointID" class="form-control" asp-items="ViewBag.FromWaypointID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToWaypointID" class="control-label"></label>
+                <select asp-for="ToWaypointID" class="form-control" asp-items="ViewBag.ToWaypointID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="button-div"><a class="button-text" asp-action="Index">Back to List</a></div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

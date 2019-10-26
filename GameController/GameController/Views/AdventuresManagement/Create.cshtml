@@ -1,0 +1,69 @@
+﻿@model GameControllerData.Models.Adventure
+
+@{
+    ViewData["Title"] = "Create";
+}
+   
+<h2>
+    Create
+</h2>
+<div class="button-group">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="float:right;width:12%">Help</button>
+</div>
+<h4>Adventure</h4>
+<hr />
+<div class="row">
+    <div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 4 })
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CoverImage" class="control-label"></label>
+                <input asp-for="CoverImage" class="form-control" />
+                <span asp-validation-for="CoverImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WaypointID" class="control-label">Starting Waypoint ID</label>
+                <select asp-for="WaypointID" class="form-control" asp-items="ViewBag.WaypointID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="button-div"><a class="button-text" asp-action="Index">Back to List</a></div>
+
+<!-- Modal -->
+<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Help and Tips</h5>
+            </div>
+            <div class="modal-body">
+                Create a new adventure.
+
+                <p>Cover image is a internet link to a image.</p>
+                <p>Waypoint id is the first waypoint of the adventure. This waypoint's contents will be shown to the players, regardless of their geographical position, when they begin the adventure. This must be set for the adventure to be playable, but can be to null initally and edit the adventure to add later.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,38 @@
+﻿@model GameControllerData.Models.Message
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Message</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageContent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MessageContent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Team)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Team.TeamId)
+        </dd>
+    </dl>
+</div>
+<div class="button-div">
+    <a class="button-text" asp-action="Edit" asp-route-id="@Model.MessageID">Edit</a>
+</div>
+<div class="button-div">
+    <a class="button-text" asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,28 @@
+﻿@model GameControllerData.Models.newAdventureMap
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>newAdventureMap</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FromWaypoint)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FromWaypoint.WaypointID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ToWaypoint)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToWaypoint.WaypointID)
+        </dd>
+    </dl>
+</div>
+<div class="button-div"><a class="button-text" asp-action="Edit" asp-route-id="@Model.AdventureMapID">Edit</a></div>
+<div class="button-div"><a class="button-text" asp-action="Index">Back to List</a></div>

@@ -1,0 +1,47 @@
+﻿@model GameControllerData.Models.Team
+
+@{
+    ViewData["Title"] = "Edit";
+}
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .row {
+            display: inline-block;
+            width: 40%;
+        }
+    </style>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#help" style="float:right;width:12%">Help</button>
+<h2>Edit</h2>
+
+<h4>Team</h4>
+<hr />
+
+<div class="row">
+    <div>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TeamId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="button-div"><a class="button-text" asp-action="Index">Back to List</a></div>
+
+<!-- Modal -->
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
