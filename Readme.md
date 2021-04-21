@@ -11,4 +11,3 @@ Users of the website applcation are the game masters. The game masters monitor a
 MobileSourceCode contains a visual studio project that implements the mobile application. Written in C# and using the Xamarin platform, specifically Xamarin forms to allow cross-platform. 
 
 GameController conatins a visual studio project that implements the website application and the Web API. The Web API facilitates communication between the database and applications. The database is stored in the GameController folder. Both Web API and website are written in C#. The Web API uses the ASP.NET framework. The Website application uses the .NET core framework.   
-
